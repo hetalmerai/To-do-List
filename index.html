@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="./css/stylesheet.css">
+</head>
+<body>
+<div class="main">
+	<div class="header">
+		<div class="line1"></div>
+		<div class="head_body">
+			<span class="flower_left"></span>
+			<p>TO DO LIST</p>
+			<span class="flower_right"></span>
+		</div>
+		<div class="line2"></div>
+	</div>
+
+	<div class="content">
+		<div class="content_top">
+			<div class="circle">
+				<div class="inner_cirlce">
+					<p>Breakfast</p>
+					<p>Breakfast</p>
+					<p>Breakfast</p>
+				</div>
+				<span class="small_flower"></span>
+			</div>
+			<div class="circle">
+				<div class="inner_cirlce">
+						<p>Lunch</p>
+						<p>Breakfast</p>
+						<p>Breakfast</p>
+				</div>
+				<span class="small_flower"></span>
+			</div>
+			<div class="circle">
+				<div class="inner_cirlce">
+						<p>Dinner</p>
+						<p>Breakfast</p>
+						<p>Breakfast</p>
+				</div>
+				<span class="small_flower"></span>
+			</div>
+			</div>
+		<div class="details">
+			
+		</div>
+		<div class="water">
+			<div class="trapezoid" id="1"></div>
+			<div class="trapezoid" id="2"></div>
+			<div class="trapezoid" id="3"></div>
+			<div class="trapezoid" id="4"></div>
+			<div class="trapezoid" id="5"></div>
+			<div class="trapezoid" id="6"></div>
+			<div class="trapezoid" id="7"></div>
+			<div class="trapezoid" id="8"></div>
+		</div> 	
+	</div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+
+		$(".trapezoid").on("click",function(){
+			$(this.id).css("border-top-color","#fff")
+			console.log($(this.id).css("border-top-color"))
+			console.log(this.id)
+		})
+
+	})
+</script>
+</body>
+</html>

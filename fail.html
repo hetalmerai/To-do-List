@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="./css/stylesheet1.css">
+</head>
+<body>
+	<div class="main">
+		<div class="header">
+			<div class="line1"></div>
+		<div class="head_body">
+			<span class="flower_left"></span>
+			<p>TO DO LIST</p>
+			<span class="flower_right"></span>
+		</div>
+		<div class="line2"></div>
+		</div>
+		<div class="body">
+			<div class="add">
+				<p class="p_add">Add:</p><input type="text" name="data">
+				<p class="go">Go</p>
+
+			</div>
+			<div class="list">
+				<div id="to_do">
+				<!-- <div id="to_do"><div id="line"><div id="box"></div><p id="t">jcjkhks</p></div></div> -->
+			</div>
+			</div>
+			
+		</div>
+		
+	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+				var todo=[]
+				var b=[]
+				var newHTML = [];
+				
+			
+			 	console.log(localStorage.getItem("mylist"))
+			 	if (typeof(Storage) !== "undefined") 
+				{
+					
+					console.log(localStorage.getItem("mylist"))
+					if(localStorage.getItem("mylist")!= null)
+					{
+						var to=localStorage.getItem("mylist").split(",")
+						console.log(to)
+						for(var x=0;x<to.length;x++)
+						{
+							console.log(to[x])
+								$("#to_do").append( '<div id="line" data-description='+x+'><button id="box"></button><p id="t">'+to[x] +'</p><button class="a">Edit</button><button class="b">Delete</button></div>');
+								todo.push(to[x]);
+								var p=$(this).parent().attr("data-description")
+								
+							
+						}
+					
+					}
+				}
+				$(".go").on("click",function()
+				{
+
+						var x=$("input").val();
+						$("input").val(" ")
+						console.log(x,"input")
+						if( x == "" || x == null)
+						{
+							$(".add").append('<p id="sl">Please Enter a value</p')
+						}
+						else
+						{
+							$("#sl").hide()
+						todo.push(x);
+							$( ".list" ).empty()
+						for(var i=0;i<todo.length;i++)
+						{	
+							$("#to_do").append( '<div id="line" data-description='+i+'><button id="box"></button><p id="t">'+todo[i] +'</p><button class="a">Edit</button><button class="b">Delete</button></div>');
+				 			localStorage.setItem("mylist",todo);
+				 			
+						}
+							console.log(todo,"go")
+						}
+					});
+
+				
+
+					$(".a").on("click",function()
+					{
+						console.log("edit",$(this).closest("div").attr("data-description"))
+						//$(this).children("#t").append("<input type="text" value=''>")
+
+					})
+
+					$("#to_do").on("click",$(this).find(".b"),function()
+					{
+						// e.stopPropagation();
+						console.log("del",$(this))
+						
+						
+						
+						
+
+					})
+
+
+					$("#to_do").on("click",function(){
+							console.log("green",$(this).parent().attr("data-description"))
+							$(this).parent().css("background-color","white")	
+					})
+
+					
+			
+			
+		});
+	</script>
+</body>
+</html>

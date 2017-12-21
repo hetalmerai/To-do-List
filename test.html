@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="./css/stylesheet1.css">
+</head>
+<body>
+	<div class="main">
+		<div class="header"></div>
+		<div class="body">
+			<div class="add">
+				<p class="p_add">Add:</p><input type="text" name="data">
+				<p class="go">Go</p>
+
+			</div>
+			<div class="list">
+				<!-- <div id="to_do"><div id="line"><div id="box"></div><p id="t">jcjkhks</p></div></div> -->
+			</div>
+			
+		</div>
+		
+	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+				var todo=[]
+				var b=[]
+				var newHTML = [];
+				
+			
+			 	console.log(localStorage.getItem("mylist"))
+			 	if (typeof(Storage) !== "undefined") 
+				{
+					
+					console.log(localStorage.getItem("mylist"))
+					if(localStorage.getItem("mylist")!= null)
+					{
+						var to=localStorage.getItem("mylist").split(",")
+						console.log(to)
+						for(var x=0;x<to.length;x++)
+						{
+							console.log(to[x])
+								$(".list").append( '<div id="to_do"><div id="line" data-description='+x+'><div id="box"></div><p id="t">'+to[x] +'</p><button class="a">Edit</button><button class="b">Delete</button></span></div>');
+								todo.push(to[x]);
+								var p=$(this).parent().attr("data-description")
+								 $("#box").click( createCallback(p ) );
+								
+							
+						}
+					
+					}
+				}
+				$(".go").on("click",function()
+				{
+						var x=$("input").val();
+						todo.push(x);
+							$( ".list" ).empty()
+						for(var i=0;i<todo.length;i++)
+						{	
+							$(".list").append( '<div id="to_do"><div id="line" data-description='+i+'><div id="box"></div><p id="t">'+todo[i] +'</p><button class="a">Edit</button><button class="b">Delete</button></div></div>');
+				 			localStorage.setItem("mylist",todo);
+				 			
+							}
+					});
+
+				$(".b").on("click",function()
+				{
+					console.log("delete")
+					$( ".list" ).empty()
+					var value= $(this).closest("div").attr("data-description");
+					localStorage.removeItem(value);
+					todo.splice(value, 1)
+					console.log(todo,todo.length,"todo")
+					for(var k=0;k<todo.length;k++)
+						{	
+							$(".list").append( '<div id="to_do"><div id="line" data-description='+k+'><div id="box"></div><p id="t">'+todo[k] +'</p><button class="a">Edit</button><button class="b">Delete</button></div></div>');
+						}
+					localStorage.setItem("mylist",todo);
+						
+						;
+				});
+
+					function createCallback(p){
+					console.log("green")
+					//b.push($(this).closest("div").attr("data-description"))
+					console.log($(this).parent().attr("data-description"),"green")
+					$(this).css("background-color","green")
+				}
+
+					$(".a").on("click",function()
+					{
+						console.log("edit",$(this).closest("div").attr("data-description"))
+					})
+
+			
+			
+		});
+	</script>
+</body>
+</html>

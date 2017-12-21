@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="./css/stylesheet1.css">
+</head>
+<body>
+	<div class="main">
+		<div class="header">
+			<div class="line1"></div>
+		<div class="head_body">
+			<span class="flower_left"></span>
+			<p>TO DO LIST</p>
+			<span class="flower_right"></span>
+		</div>
+		<div class="line2"></div>
+		</div>
+		<div class="body">
+			<div class="add">
+				<p class="p_add"></p><input type="text" name="data" placeholder="Enter your Data">
+				<p class="go">Go</p>
+
+			</div>
+			<div class="list">
+				<!-- <div id="to_do"><div id="line"><div id="box"></div><p id="t">jcjkhks</p></div></div> -->
+			</div>
+			
+		</div>
+		
+	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+				var todo=[]
+				var b=[]
+				var newHTML = [];
+				var temp=""
+			
+			 	console.log(localStorage.getItem("mylist"))
+			 	if (typeof(Storage) !== "undefined") 
+				{
+					
+					console.log(localStorage.getItem("mylist"))
+					if(localStorage.getItem("mylist")!= null)
+					{
+						var to=localStorage.getItem("mylist").split(",")
+						console.log(to)
+						for(var x=0;x<to.length;x++)
+						{
+							console.log(to[x])
+								$(".list").append( '<div class="to_do_list"><div class="list_item" data-description='+x+'><button class="box"></button><div class="t show">'+to[x] +'</div><input type="text" class="hide" value='+to[x]+'><button class="edit">Edit</button><button class="delete">Delete</button><button class="save hide">Save</button></div></div>');
+								todo.push(to[x]);
+								var p=$(this).parent().attr("data-description")
+								
+							
+						}
+					
+					}
+				}
+
+				$(".go").on("click",function()
+				{
+
+						var x=$("input").val();
+						$("input").val(" ")
+						console.log(x,"input")
+						if( x == "" || x == null)
+						{
+							$(".add").append('<p class="wrong_value">Please Enter a value</p')
+						}
+						else
+						{
+							$(".wrong_value").hide()
+						todo.push(x);
+							$( ".list" ).empty()
+						for(var i=0;i<todo.length;i++)
+						{	
+							$(".list").append( '<div class="to_do_list"><div class="list_item" data-description='+i+'><button class="box"></button><div class="t show">'+todo[i] +'</div><input class="hide" type="text" value='+todo[i]+'><button class="edit">Edit</button><button class="delete">Delete</button><button class="save hide">Save</button></div></div>');
+				 			localStorage.setItem("mylist",todo);
+				 				console.log(todo,$(this).parent().find("input").val())
+				 			
+						}
+							console.log(todo,"go")
+						}
+					});
+
+					
+					$("body").on("click",'.list .delete',function(){
+						var delete_val=$(this).prev().prev().text()
+						var index=jQuery.inArray( delete_val, todo )
+						todo.splice(index,1);
+						$(this).parent('.list_item').parent('.to_do_list').remove();
+						console.log(todo)
+						localStorage.setItem("mylist",todo);
+						
+					})
+
+					$("body").on("click",'.list .edit',function(){
+						
+						$(this).parent().find(".save").removeClass("hide").addClass("show")
+						$(this).parent().find("input").removeClass("hide").addClass("show")
+						$(this).parent().find("input").attr("value",$(this).parent().find(".t").text())
+						$(this).parent().find(".t").removeClass("show").addClass("hide")
+						$(this).removeClass("show").addClass("hide")
+						temp=$(this).parent().find("input").val()
+
+					})
+
+					$("body").on("click",'.list .save',function(){
+						var new_value=$(this).parent().find("input").val()
+						$(".list").empty()
+						for(var i=0;i<todo.length;i++)
+						{	
+							if(todo[i]==temp)
+							{
+								todo[i]=new_value;
+								$(".list").append( '<div class="to_do_list"><div class="list_item" data-description='+i+'><button class="box"></button><div class="t show">'+todo[i] +'</div><input class="hide" type="text" value='+todo[i]+'><button class="edit">Edit</button><button class="delete">Delete</button><button class="save hide">Save</button></div></div>');
+							}
+							else
+							{
+								$(".list").append( '<div class="to_do_list"><div class="list_item" data-description='+i+'><button class="box"></button><div class="t show">'+todo[i] +'</div><input class="hide" type="text" value='+todo[i]+'><button class="edit">Edit</button><button class="delete">Delete</button><button class="save hide">Save</button></div></div>');
+							}
+				 			
+						}
+						localStorage.setItem("mylist",todo);
+						
+					})
+					
+					
+			
+			
+		});
+	</script>
+</body>
+</html>
